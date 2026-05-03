@@ -16,7 +16,5 @@ package com.techlab.articulo.interfaces;
  * Justamente la idea es que cada clase lo implemente a su manera.
  */
 public interface Calculable {
-
-    // TODO:
-    // Declarar el método calcularPrecioFinal().
+    double calcularPrecioFinal( );
 }

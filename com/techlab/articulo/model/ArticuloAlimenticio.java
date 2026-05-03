@@ -28,22 +28,29 @@ public class ArticuloAlimenticio extends Articulo {
 
     private int diasParaVencimiento;
 
-    // TODO:
-    // Crear constructor.
+    public ArticuloAlimenticio (int codigo, String nombre, double precio, Categoria categoria, int diasParaVencimiento) {
+        super(codigo, nombre, precio, categoria);
+        this.diasParaVencimiento = diasParaVencimiento;
+    }
 
     // TODO:
     // Crear getters y setters.
 
     @Override
     public String getTipoArticulo() {
-        // TODO:
-        return "";
+        return "Alimenticio";
     }
 
     @Override
     public double calcularPrecioFinal() {
-        // TODO:
-        // Implementar lógica propia del artículo alimenticio.
-        return 0;
+        return (diasParaVencimiento<5)?  getPrecio()*0.9 : getPrecio();
+    }
+
+    public int getDiasParaVencimiento() {
+        return diasParaVencimiento;
+    }
+
+    public void setDiasParaVencimiento(int diasParaVencimiento) {
+        this.diasParaVencimiento = diasParaVencimiento;
     }
 }

@@ -15,7 +15,5 @@ package com.techlab.articulo.interfaces;
  * En este caso, ese criterio será el código.
  */
 public interface Identificable {
-
-    // TODO:
-    // Declarar el método getCodigo().
+    int getCodigo();
 }
