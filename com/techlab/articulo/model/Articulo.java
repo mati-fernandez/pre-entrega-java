@@ -34,7 +34,7 @@ import com.techlab.articulo.interfaces.Identificable;
  * - tener getters y setters
  * - tener toString()
  * - declarar un método abstracto:
- *   String getTipoArticulo();
+ * String getTipoArticulo();
  *
  * OPCIONAL RECOMENDADO
  * ------------------------------------------------------------
@@ -64,15 +64,13 @@ public abstract class Articulo implements Calculable, Identificable {
         return categoria;
     }
 
-
-public void setCategoria(Categoria categoria) {
-    if (categoria != null) {
-        this.categoria = categoria;
-    } else {
-        System.out.println("Ingrese una categoría existente");
+    public void setCategoria(Categoria categoria) {
+        if (categoria != null) {
+            this.categoria = categoria;
+        } else {
+            System.out.println("Ingrese una categoría existente");
+        }
     }
-}
-
 
     public String getNombre() {
         return nombre;
@@ -87,20 +85,18 @@ public void setCategoria(Categoria categoria) {
     }
 
     public void setPrecio(double precio) {
-        if (precio > 0) this.precio = precio;
+        if (precio > 0)
+            this.precio = precio;
     }
-
-    //algún otro getter o setter más?
-
 
     public abstract String getTipoArticulo();
 
     @Override
     public String toString() {
-      return "Tipo: " + getTipoArticulo() + 
-           " | Código: " + codigo + 
-           " | Nombre: " + nombre + 
-           " | Precio Base: $" + precio +
-           " | Precio Final: $" + calcularPrecioFinal(); 
+        return "Tipo: " + getTipoArticulo() +
+                " | Código: " + codigo +
+                " | Nombre: " + nombre +
+                " | Precio Base: $" + precio +
+                " | Precio Final: $" + calcularPrecioFinal() * 1.21;
     }
 }

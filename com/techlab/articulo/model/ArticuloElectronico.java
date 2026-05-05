@@ -31,8 +31,6 @@ public class ArticuloElectronico extends Articulo {
 
     private int garantiaMeses;
 
-    
-
     // TODO:
     // Crear getters y setters.
 
@@ -56,6 +54,6 @@ public class ArticuloElectronico extends Articulo {
 
     @Override
     public double calcularPrecioFinal() {
-        return (garantiaMeses>12) ? getPrecio()*1.26: getPrecio()*1.21;
+        return (garantiaMeses > 12) ? getPrecio() * 1.05 : getPrecio();
     }
 }

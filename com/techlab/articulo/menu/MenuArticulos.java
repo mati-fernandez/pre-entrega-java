@@ -1,5 +1,7 @@
 package com.techlab.articulo.menu;
 
+import com.techlab.articulo.repository.Repositorio;
+
 /**
  * CONSIGNA DE ESTA CLASE
  * ------------------------------------------------------------
@@ -25,16 +27,16 @@ package com.techlab.articulo.menu;
  * ------------------------------------------------------------
  * - Antes de crear un artículo, debe verificarse que existan categorías.
  * - Debe preguntarse qué tipo de artículo se quiere crear:
- *   - electrónico
- *   - alimenticio
+ * - electrónico
+ * - alimenticio
  * - Debe pedirse:
- *   - nombre
- *   - precio
- *   - categoría por código
+ * - nombre
+ * - precio
+ * - categoría por código
  * - Si es electrónico:
- *   - garantía en meses
+ * - garantía en meses
  * - Si es alimenticio:
- *   - días para vencimiento
+ * - días para vencimiento
  *
  * VALIDACIONES
  * ------------------------------------------------------------
@@ -59,8 +61,9 @@ package com.techlab.articulo.menu;
  */
 public class MenuArticulos extends Menu {
 
-    public MenuArticulos(java.util.Scanner scanner) {
+    public MenuArticulos(java.util.Scanner scanner, Repositorio<Articulo> repoArt, Repositorio<Categoria> repoCat) {
         super(scanner);
+
     }
 
     @Override

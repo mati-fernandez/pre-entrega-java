@@ -28,15 +28,20 @@ package com.techlab.articulo.utils;
  */
 public final class Secuencias {
 
-    // TODO:
-    // Crear atributos static para llevar la secuencia.
+    private static int contadorArticulos = 0;
+    private static int contadorCategorias = 0;
 
-    private Secuencias() {
+    // Constructor privado: ¡Nadie puede hacer 'new Secuencias()'!
+    private Secuencias() {}
+
+    public static int generarCodigoArticulo() {
+        contadorArticulos++;
+        return contadorArticulos;
+    }
+    public static int  generarCodigoCategoria() {
+        contadorCategorias++;
+        return contadorCategorias;
     }
 
-    // TODO:
-    // Implementar generarCodigoArticulo()
 
-    // TODO:
-    // Implementar generarCodigoCategoria()
 }
