@@ -1,5 +1,7 @@
 package com.techlab.articulo.menu;
 
+import com.techlab.articulo.model.Articulo;
+import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
 
 /**
@@ -79,8 +81,36 @@ public class MenuArticulos extends Menu {
 
     @Override
     public void ejecutar() {
-        // TODO:
-        // Implementar el loop del menú y llamar a los métodos correspondientes.
+        int opcion;
+        do {
+            mostrarMenu();
+            System.out.print("Seleccione una opción de artículos: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("[Provisorio] Acá se va a ingresar un artículo.");
+                    break;
+                case 2:
+                    System.out.println("[Provisorio] Acá se van a listar los artículos.");
+                    break;
+                case 3:
+                    System.out.println("[Provisorio] Acá se va a consultar un artículo.");
+                    break;
+                case 4:
+                    System.out.println("[Provisorio] Acá se va a modificar un artículo.");
+                    break;
+                case 5:
+                    System.out.println("[Provisorio] Acá se va a eliminar un artículo.");
+                    break;
+                case 0:
+                    System.out.println("Volviendo al Menú Principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        } while (opcion != 0);
     }
 
     // TODO:

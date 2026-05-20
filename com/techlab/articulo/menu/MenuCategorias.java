@@ -1,5 +1,9 @@
 package com.techlab.articulo.menu;
 
+import com.techlab.articulo.model.Articulo;
+import com.techlab.articulo.model.Categoria;
+import com.techlab.articulo.repository.Repositorio;
+
 /**
  * CONSIGNA DE ESTA CLASE
  * ------------------------------------------------------------
@@ -44,7 +48,7 @@ package com.techlab.articulo.menu;
  */
 public class MenuCategorias extends Menu {
 
-    public MenuCategorias(java.util.Scanner scanner) {
+    public MenuCategorias(java.util.Scanner scanner, Repositorio<Categoria> repoCat, Repositorio<Articulo> repoArt) {
         super(scanner);
     }
 
@@ -61,8 +65,36 @@ public class MenuCategorias extends Menu {
 
     @Override
     public void ejecutar() {
-        // TODO:
-        // Implementar el loop del menú y llamar a los métodos correspondientes.
+        int opcion;
+        do {
+            mostrarMenu();
+            System.out.print("Seleccione una opción de categorías: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiamos buffer
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("[Provisorio] Acá se va a ingresar una categoría.");
+                    break;
+                case 2:
+                    System.out.println("[Provisorio] Acá se van a listar las categorías.");
+                    break;
+                case 3:
+                    System.out.println("[Provisorio] Acá se va a consultar una categoría.");
+                    break;
+                case 4:
+                    System.out.println("[Provisorio] Acá se va a modificar una categoría.");
+                    break;
+                case 5:
+                    System.out.println("[Provisorio] Acá se va a eliminar una categoría.");
+                    break;
+                case 0:
+                    System.out.println("Volviendo al Menú Principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        } while (opcion != 0);
     }
 
     // TODO:

@@ -111,8 +111,35 @@ public class App {
         MenuArticulos menuArt = new MenuArticulos(scanner, repoArticulos, repoCategorias);
         MenuCategorias menuCat = new MenuCategorias(scanner, repoCategorias, repoArticulos);
 
-        // TODO:
-        // Implementar el menú principal de la aplicación.
+        // --- AQUÍ VA EL MENÚ PRINCIPAL CONECTADO A LOS MENÚS HIJOS ---
+        int opcion;
+        do {
+            System.out.println("\n=================================");
+            System.out.println("   SISTEMA DE GESTIÓN PRINCIPAL");
+            System.out.println("=================================");
+            System.out.println("1 - Menú de Artículos");
+            System.out.println("2 - Menú de Categorías");
+            System.out.println("0 - Salir del Sistema");
+            System.out.println("---------------------------------");
+            System.out.print("Seleccione una opción: ");
+
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpieza crucial del buffer del scanner
+
+            switch (opcion) {
+                case 1:
+                    menuArt.ejecutar(); // Llama al loop de MenuArticulos
+                    break;
+                case 2:
+                    menuCat.ejecutar(); // Llama al loop de MenuCategorias
+                    break;
+                case 0:
+                    System.out.println("Cerrando el sistema... ¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        } while (opcion != 0);
 
         scanner.close();
     }
