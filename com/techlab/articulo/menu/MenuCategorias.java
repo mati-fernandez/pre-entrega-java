@@ -1,9 +1,12 @@
 package com.techlab.articulo.menu;
 
+import java.util.List;
+
 import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
 import com.techlab.articulo.utils.Secuencias;
+import com.techlab.articulo.utils.Validaciones;
 
 /**
  * CONSIGNA DE ESTA CLASE
@@ -80,11 +83,10 @@ public class MenuCategorias extends Menu {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("[Provisorio] Acá se va a ingresar una categoría.");
                     ingresarCategoria();
                     break;
                 case 2:
-                    System.out.println("[Provisorio] Acá se van a listar las categorías.");
+                    listarCategorias();
                     break;
                 case 3:
                     System.out.println("[Provisorio] Acá se va a consultar una categoría.");
@@ -105,11 +107,42 @@ public class MenuCategorias extends Menu {
     }
 
     private void ingresarCategoria() {
-        String nombre = leerTexto("Nombre de la Categoria: ");
-        String descripcion = leerTexto("Descripción de la Categoria: ");
+        String nombre = pedirNombreCategoria();
+        String descripcion = pedirDescripcionCategoria();
         int codigo = Secuencias.generarCodigoCategoria();
         Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
         repositorioCategorias.agregar(nuevaCategoria);
         System.out.println("Categoría guardada con éxito.");
+    }
+
+    private void listarCategorias() {
+        List<Categoria> listaCat = repositorioCategorias.listar();
+        if (listaCat.isEmpty()) {
+            System.out.println("No hay categorías aún, debe primero crear alguna.");
+            return;
+        }
+        for (Categoria cat : listaCat) {
+            System.out.println(cat);
+        }
+    }
+
+    private String pedirNombreCategoria() {
+        while (true) {
+            String nombre = leerTexto("Ingrese el nombre de la categoría: ");
+            if (Validaciones.validarTextoNoVacio(nombre)) {
+                return nombre.trim();
+            }
+            System.out.println("Error: el nombre no puede estar vacío.");
+        }
+    }
+
+    private String pedirDescripcionCategoria() {
+        while (true) {
+            String desc = leerTexto("Ingrese la descripción de la categoría: ");
+            if (Validaciones.validarTextoNoVacio(desc)) {
+                return desc.trim();
+            }
+            System.out.println("Error: la descripción no puede estar vacía.");
+        }
     }
 }
