@@ -40,10 +40,10 @@ public class Categoria implements Identificable {
 
     @Override
     public int getCodigo() {
-        return codigo;//Está bien o es this.codigo? Acá me confundo. Cuando sea llamado, devuelve el codigo de la instancia aunque no ponga this en los getters?
+        return codigo;// Está bien o es this.codigo? Acá me confundo. Cuando sea llamado, devuelve el
+                      // codigo de la instancia aunque no ponga this en los getters?
     }
 
-  
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
@@ -67,7 +67,7 @@ public class Categoria implements Identificable {
     @Override
     public String toString() {
         return "Código" + codigo +
-        " | Nombre" + nombre +
-        " | Descripcion" + descripcion;
+                " | Nombre" + nombre +
+                " | Descripcion" + descripcion;
     }
 }

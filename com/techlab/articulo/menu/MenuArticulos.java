@@ -4,26 +4,7 @@ import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
 
-/**
- * CONSIGNA DE ESTA CLASE
- * ------------------------------------------------------------
- * Esta clase debe heredar de Menu y encargarse del CRUD de artículos.
- *
- * Debe trabajar con:
- * - Repositorio<Articulo>
- * - Repositorio<Categoria>
- *
- * ¿Por qué necesita también categorías?
- * Porque un artículo debe asociarse a una categoría ya existente.
- *
- * FUNCIONALIDADES ESPERADAS
- * ------------------------------------------------------------
- * 1) Ingresar artículo
- * 2) Listar artículos
- * 3) Consultar un artículo por código
- * 4) Modificar un artículo
- * 5) Eliminar un artículo
- * 0) Volver
+/*
  *
  * REQUISITOS IMPORTANTES
  * ------------------------------------------------------------
@@ -63,9 +44,13 @@ import com.techlab.articulo.repository.Repositorio;
  */
 public class MenuArticulos extends Menu {
 
+    private Repositorio<Articulo> repoArticulos;
+    private Repositorio<Categoria> repoCategorias;
+
     public MenuArticulos(java.util.Scanner scanner, Repositorio<Articulo> repoArt, Repositorio<Categoria> repoCat) {
         super(scanner);
-
+        this.repoArticulos = repoArt;
+        this.repoCategorias = repoCat;
     }
 
     @Override
@@ -84,13 +69,13 @@ public class MenuArticulos extends Menu {
         int opcion;
         do {
             mostrarMenu();
-            System.out.print("Seleccione una opción de artículos: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+
+            opcion = leerEntero("Seleccione una opción de artículos: ");
 
             switch (opcion) {
                 case 1:
                     System.out.println("[Provisorio] Acá se va a ingresar un artículo.");
+                    ingresarArticulo();
                     break;
                 case 2:
                     System.out.println("[Provisorio] Acá se van a listar los artículos.");
@@ -113,6 +98,12 @@ public class MenuArticulos extends Menu {
         } while (opcion != 0);
     }
 
-    // TODO:
-    // Implementar todos los métodos del CRUD de artículos.
+    private void ingresarArticulo() {
+        if (repoCategorias.estaVacio()) {
+            System.out.println("\nNo es posible crear artículos porque no hay categorías cargadas.");
+            System.out.println("Primero debe ingresar al menos una categoría.");
+            return;
+        }
+        System.out.println("[Provisorio] Acá se ingresa REALMENTE EL ART sabiendo que ya existe alguna categoría");
+    }
 }

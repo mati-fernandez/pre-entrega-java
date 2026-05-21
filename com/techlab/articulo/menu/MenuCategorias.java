@@ -3,6 +3,7 @@ package com.techlab.articulo.menu;
 import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.Categoria;
 import com.techlab.articulo.repository.Repositorio;
+import com.techlab.articulo.utils.Secuencias;
 
 /**
  * CONSIGNA DE ESTA CLASE
@@ -75,6 +76,7 @@ public class MenuCategorias extends Menu {
             switch (opcion) {
                 case 1:
                     System.out.println("[Provisorio] Acá se va a ingresar una categoría.");
+                    ingresarCategoria();
                     break;
                 case 2:
                     System.out.println("[Provisorio] Acá se van a listar las categorías.");
@@ -97,6 +99,11 @@ public class MenuCategorias extends Menu {
         } while (opcion != 0);
     }
 
-    // TODO:
-    // Implementar todos los métodos del CRUD de categorías.
+    private void ingresarCategoria() {
+        String nombre = leerTexto("Nombre de la Categoria: ");
+        String descripcion = leerTexto("Descripción de la Categoria: ");
+        int codigo = Secuencias.generarCodigoCategoria();
+        Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
+        // repoCat Cómo me traigo el repo acá?
+    }
 }
