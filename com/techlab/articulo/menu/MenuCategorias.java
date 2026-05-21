@@ -49,8 +49,13 @@ import com.techlab.articulo.utils.Secuencias;
  */
 public class MenuCategorias extends Menu {
 
+    private final Repositorio<Categoria> repositorioCategorias;
+    private final Repositorio<Articulo> repositorioArticulos;
+
     public MenuCategorias(java.util.Scanner scanner, Repositorio<Categoria> repoCat, Repositorio<Articulo> repoArt) {
         super(scanner);
+        this.repositorioCategorias = repoCat;
+        this.repositorioArticulos = repoArt;
     }
 
     @Override
@@ -104,6 +109,7 @@ public class MenuCategorias extends Menu {
         String descripcion = leerTexto("Descripción de la Categoria: ");
         int codigo = Secuencias.generarCodigoCategoria();
         Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
-        // repoCat Cómo me traigo el repo acá?
+        repositorioCategorias.agregar(nuevaCategoria);
+        System.out.println("Categoría guardada con éxito.");
     }
 }
