@@ -89,7 +89,7 @@ public class MenuCategorias extends Menu {
                     listarCategorias();
                     break;
                 case 3:
-                    System.out.println("[Provisorio] Acá se va a consultar una categoría.");
+                    consultarCategoria();
                     break;
                 case 4:
                     System.out.println("[Provisorio] Acá se va a modificar una categoría.");
@@ -126,6 +126,21 @@ public class MenuCategorias extends Menu {
         }
     }
 
+    private void consultarCategoria() {
+        if (repositorioCategorias.estaVacio()) {
+            System.out.println("No hay categorías cargadas para consultar.");
+            return;
+        }
+        int codigo = pedirCodigoCategoria();
+        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        if (categoria == null) {
+            System.out.println("Error: No existe ninguna categoría con el código " + codigo);
+        } else {
+            System.out.println("\nCategoría encontrada:");
+            System.out.println(categoria);
+        }
+    }
+
     private String pedirNombreCategoria() {
         while (true) {
             String nombre = leerTexto("Ingrese el nombre de la categoría: ");
@@ -143,6 +158,16 @@ public class MenuCategorias extends Menu {
                 return desc.trim();
             }
             System.out.println("Error: la descripción no puede estar vacía.");
+        }
+    }
+
+    private int pedirCodigoCategoria() {
+        while (true) {
+            int codigo = leerEntero("Ingrese el codigo de la categoria: ");
+            if (Validaciones.validarNoNegativo(codigo)) {
+                return codigo;
+            }
+            System.out.println("Error: el número debe ser positivo.");
         }
     }
 }

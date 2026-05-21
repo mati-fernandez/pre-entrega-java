@@ -74,7 +74,6 @@ public class MenuArticulos extends Menu {
 
             switch (opcion) {
                 case 1:
-                    System.out.println("[Provisorio] Acá se va a ingresar un artículo.");
                     ingresarArticulo();
                     break;
                 case 2:

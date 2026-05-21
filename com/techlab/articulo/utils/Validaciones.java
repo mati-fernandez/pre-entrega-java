@@ -32,4 +32,11 @@ public final class Validaciones {
     public static boolean validarTextoNoVacio(String texto) {
         return texto != null && !texto.trim().isEmpty();
     }
+
+    public static boolean validarNoNegativo(int num) {
+        if (num >= 0) {
+            return true;
+        }
+        return false;
+    }
 }
