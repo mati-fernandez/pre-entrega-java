@@ -77,7 +77,7 @@ public class MenuCategorias extends Menu {
         int opcion;
         do {
             mostrarMenu();
-            System.out.print("Seleccione una opción de categorías: ");
+            System.out.print("\nSeleccione una opción de categorías: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiamos buffer
 
@@ -92,16 +92,16 @@ public class MenuCategorias extends Menu {
                     consultarCategoria();
                     break;
                 case 4:
-                    System.out.println("[Provisorio] Acá se va a modificar una categoría.");
+                    modificarCategoria();
                     break;
                 case 5:
                     System.out.println("[Provisorio] Acá se va a eliminar una categoría.");
                     break;
                 case 0:
-                    System.out.println("Volviendo al Menú Principal...");
+                    System.out.println("\nVolviendo al Menú Principal...");
                     break;
                 default:
-                    System.out.println("Opción no válida.");
+                    System.out.println("\nOpción no válida.");
             }
         } while (opcion != 0);
     }
@@ -112,13 +112,13 @@ public class MenuCategorias extends Menu {
         int codigo = Secuencias.generarCodigoCategoria();
         Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
         repositorioCategorias.agregar(nuevaCategoria);
-        System.out.println("Categoría guardada con éxito.");
+        System.out.println("\nCategoría guardada con éxito.");
     }
 
     private void listarCategorias() {
         List<Categoria> listaCat = repositorioCategorias.listar();
         if (listaCat.isEmpty()) {
-            System.out.println("No hay categorías aún, debe primero crear alguna.");
+            System.out.println("\nNo hay categorías aún, debe primero crear alguna.");
             return;
         }
         for (Categoria cat : listaCat) {
@@ -128,46 +128,70 @@ public class MenuCategorias extends Menu {
 
     private void consultarCategoria() {
         if (repositorioCategorias.estaVacio()) {
-            System.out.println("No hay categorías cargadas para consultar.");
+            System.out.println("\nNo hay categorías cargadas para consultar.");
             return;
         }
         int codigo = pedirCodigoCategoria();
         Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
         if (categoria == null) {
-            System.out.println("Error: No existe ninguna categoría con el código " + codigo);
+            System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
         } else {
             System.out.println("\nCategoría encontrada:");
             System.out.println(categoria);
         }
     }
 
+    private void modificarCategoria() {
+        if (repositorioCategorias.estaVacio()) {
+            System.out.println("\nNo hay categorías cargadas para modificar.");
+            return;
+        }
+        System.out.println("\nCategorías disponibles para modificación:");
+        listarCategorias();
+        int codigo = pedirCodigoCategoria();
+        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        if (categoria == null) {
+            System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
+        } else {
+            System.out.println("\nCategoría encontrada:");
+            System.out.println(categoria);
+            Boolean modificar = leerSiNo("\nDesea modificar esta categoría?");
+            if (modificar) {
+                categoria.setNombre(pedirNombreCategoria());
+                categoria.setDescripcion(pedirDescripcionCategoria());
+                System.out.println("\nCategoría modificada con éxito! ---> " + categoria);
+            }
+            return;
+        }
+    }
+
     private String pedirNombreCategoria() {
         while (true) {
-            String nombre = leerTexto("Ingrese el nombre de la categoría: ");
+            String nombre = leerTexto("\nIngrese el nombre de la categoría: ");
             if (Validaciones.validarTextoNoVacio(nombre)) {
                 return nombre.trim();
             }
-            System.out.println("Error: el nombre no puede estar vacío.");
+            System.out.println("\nError: el nombre no puede estar vacío.");
         }
     }
 
     private String pedirDescripcionCategoria() {
         while (true) {
-            String desc = leerTexto("Ingrese la descripción de la categoría: ");
+            String desc = leerTexto("\nIngrese la descripción de la categoría: ");
             if (Validaciones.validarTextoNoVacio(desc)) {
                 return desc.trim();
             }
-            System.out.println("Error: la descripción no puede estar vacía.");
+            System.out.println("\nError: la descripción no puede estar vacía.");
         }
     }
 
     private int pedirCodigoCategoria() {
         while (true) {
-            int codigo = leerEntero("Ingrese el codigo de la categoria: ");
+            int codigo = leerEntero("\nIngrese el codigo de la categoria: ");
             if (Validaciones.validarNoNegativo(codigo)) {
                 return codigo;
             }
-            System.out.println("Error: el número debe ser positivo.");
+            System.out.println("\nError: el número debe ser positivo.");
         }
     }
 }
