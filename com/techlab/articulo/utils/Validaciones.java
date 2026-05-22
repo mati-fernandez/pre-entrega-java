@@ -34,9 +34,10 @@ public final class Validaciones {
     }
 
     public static boolean validarNoNegativo(int num) {
-        if (num >= 0) {
-            return true;
-        }
-        return false;
+        return num >= 0;
+    }
+
+    public static boolean validarNoNegativo(double num) {
+        return num >= 0;
     }
 }

@@ -165,6 +165,39 @@ public class MenuCategorias extends Menu {
         }
     }
 
+    private void eliminarCategoria() {
+        if (repositorioCategorias.estaVacio()) {
+            System.out.println("\nNo hay categorías cargadas para eliminar.");
+            return;
+        }
+        System.out.println("\nCategorías disponibles para eliminación:");
+        listarCategorias();
+        int codigo = pedirCodigoCategoria();
+        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        if (categoria == null) {
+            System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
+        } else {
+            System.out.println("\nCategoría encontrada:");
+            System.out.println(categoria);
+            Boolean bloqueada = categoriaTieneArticulosAsociados(categoria.getCodigo());
+            if (bloqueada) {
+                System.out.println("\nNo puede eliminar esta categoría porque tiene artículos asociados!");
+                return;
+            }
+            Boolean eliminar = leerSiNo("\nDesea eliminar esta categoría?");
+            if (eliminar) {
+                categoria.setNombre(pedirNombreCategoria());
+                categoria.setDescripcion(pedirDescripcionCategoria());
+                System.out.println("\nCategoría modificada con éxito! ---> " + categoria);
+            }
+            return;
+        }
+    }
+
+    private Boolean categoriaTieneArticulosAsociados(int codigo) {
+
+    }
+
     private String pedirNombreCategoria() {
         while (true) {
             String nombre = leerTexto("\nIngrese el nombre de la categoría: ");
