@@ -52,13 +52,13 @@ import com.techlab.articulo.utils.Validaciones;
  */
 public class MenuCategorias extends Menu {
 
-    private final Repositorio<Categoria> repositorioCategorias;
-    private final Repositorio<Articulo> repositorioArticulos;
+    private final Repositorio<Categoria> repoCategorias;
+    private final Repositorio<Articulo> repoArticulos;
 
     public MenuCategorias(java.util.Scanner scanner, Repositorio<Categoria> repoCat, Repositorio<Articulo> repoArt) {
         super(scanner);
-        this.repositorioCategorias = repoCat;
-        this.repositorioArticulos = repoArt;
+        this.repoCategorias = repoCat;
+        this.repoArticulos = repoArt;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class MenuCategorias extends Menu {
                     modificarCategoria();
                     break;
                 case 5:
-                    System.out.println("[Provisorio] Acá se va a eliminar una categoría.");
+                    eliminarCategoria();
                     break;
                 case 0:
                     System.out.println("\nVolviendo al Menú Principal...");
@@ -111,12 +111,12 @@ public class MenuCategorias extends Menu {
         String descripcion = pedirDescripcionCategoria();
         int codigo = Secuencias.generarCodigoCategoria();
         Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
-        repositorioCategorias.agregar(nuevaCategoria);
+        repoCategorias.agregar(nuevaCategoria);
         System.out.println("\nCategoría guardada con éxito.");
     }
 
     private void listarCategorias() {
-        List<Categoria> listaCat = repositorioCategorias.listar();
+        List<Categoria> listaCat = repoCategorias.listar();
         if (listaCat.isEmpty()) {
             System.out.println("\nNo hay categorías aún, debe primero crear alguna.");
             return;
@@ -127,12 +127,12 @@ public class MenuCategorias extends Menu {
     }
 
     private void consultarCategoria() {
-        if (repositorioCategorias.estaVacio()) {
+        if (repoCategorias.estaVacio()) {
             System.out.println("\nNo hay categorías cargadas para consultar.");
             return;
         }
         int codigo = pedirCodigoCategoria();
-        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        Categoria categoria = repoCategorias.buscarPorCodigo(codigo);
         if (categoria == null) {
             System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
         } else {
@@ -142,20 +142,20 @@ public class MenuCategorias extends Menu {
     }
 
     private void modificarCategoria() {
-        if (repositorioCategorias.estaVacio()) {
+        if (repoCategorias.estaVacio()) {
             System.out.println("\nNo hay categorías cargadas para modificar.");
             return;
         }
         System.out.println("\nCategorías disponibles para modificación:");
         listarCategorias();
         int codigo = pedirCodigoCategoria();
-        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        Categoria categoria = repoCategorias.buscarPorCodigo(codigo);
         if (categoria == null) {
             System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
         } else {
             System.out.println("\nCategoría encontrada:");
             System.out.println(categoria);
-            Boolean modificar = leerSiNo("\nDesea modificar esta categoría?");
+            boolean modificar = leerSiNo("\nDesea modificar esta categoría?");
             if (modificar) {
                 categoria.setNombre(pedirNombreCategoria());
                 categoria.setDescripcion(pedirDescripcionCategoria());
@@ -166,36 +166,41 @@ public class MenuCategorias extends Menu {
     }
 
     private void eliminarCategoria() {
-        if (repositorioCategorias.estaVacio()) {
+        if (repoCategorias.estaVacio()) {
             System.out.println("\nNo hay categorías cargadas para eliminar.");
             return;
         }
         System.out.println("\nCategorías disponibles para eliminación:");
         listarCategorias();
         int codigo = pedirCodigoCategoria();
-        Categoria categoria = repositorioCategorias.buscarPorCodigo(codigo);
+        Categoria categoria = repoCategorias.buscarPorCodigo(codigo);
         if (categoria == null) {
             System.out.println("\nError: No existe ninguna categoría con el código " + codigo);
-        } else {
-            System.out.println("\nCategoría encontrada:");
-            System.out.println(categoria);
-            Boolean bloqueada = categoriaTieneArticulosAsociados(categoria.getCodigo());
-            if (bloqueada) {
-                System.out.println("\nNo puede eliminar esta categoría porque tiene artículos asociados!");
-                return;
-            }
-            Boolean eliminar = leerSiNo("\nDesea eliminar esta categoría?");
-            if (eliminar) {
-                categoria.setNombre(pedirNombreCategoria());
-                categoria.setDescripcion(pedirDescripcionCategoria());
-                System.out.println("\nCategoría modificada con éxito! ---> " + categoria);
-            }
             return;
+        }
+        System.out.println("\nCategoría encontrada:");
+        System.out.println(categoria);
+        if (categoriaTieneArticulosAsociados(categoria.getCodigo())) {
+            System.out.println("\nNo puede eliminar esta categoría porque tiene artículos asociados!");
+            return;
+        }
+        if (leerSiNo("\nDesea eliminar esta categoría?")) {
+            boolean eliminado = repoCategorias.eliminar(categoria);
+            if (eliminado) {
+                System.out.println("\nCategoría eliminada con éxito.");
+            } else {
+                System.out.println("\nError: No se pudo eliminar la categoría.");
+            }
         }
     }
 
-    private Boolean categoriaTieneArticulosAsociados(int codigo) {
-
+    private boolean categoriaTieneArticulosAsociados(int codigo) {
+        for (Articulo articulo : repoArticulos.listar()) {
+            if (articulo.getCategoria().getCodigo() == codigo) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String pedirNombreCategoria() {

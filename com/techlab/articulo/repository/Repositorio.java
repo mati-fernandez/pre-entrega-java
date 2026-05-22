@@ -61,11 +61,11 @@ public class Repositorio<T extends Identificable> {
         return null;
     }
 
-    public void eliminar(T objeto) {
-        lista.remove(objeto);
+    public boolean eliminar(T objeto) {
+        return lista.remove(objeto);
     }
 
-   public boolean estaVacio() {
+    public boolean estaVacio() {
         return lista.isEmpty();
     }
 }
