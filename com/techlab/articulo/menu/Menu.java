@@ -38,7 +38,7 @@ public abstract class Menu {
 
     protected String leerTexto(String mensaje) {
         System.out.print(mensaje);
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     protected boolean leerSiNo(String mensaje) {

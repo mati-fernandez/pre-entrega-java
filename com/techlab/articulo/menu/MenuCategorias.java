@@ -194,6 +194,15 @@ public class MenuCategorias extends Menu {
         }
     }
 
+    private boolean existeCategoriaConNombre(String nombre) {
+        for (Categoria categoria : repoCategorias.listar()) {
+            if (categoria.getNombre().equalsIgnoreCase(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean categoriaTieneArticulosAsociados(int codigo) {
         for (Articulo articulo : repoArticulos.listar()) {
             if (articulo.getCategoria().getCodigo() == codigo) {
@@ -206,10 +215,16 @@ public class MenuCategorias extends Menu {
     private String pedirNombreCategoria() {
         while (true) {
             String nombre = leerTexto("\nIngrese el nombre de la categoría: ");
-            if (Validaciones.validarTextoNoVacio(nombre)) {
-                return nombre.trim();
+            if (!Validaciones.validarTextoNoVacio(nombre)) {
+                System.out.println("\nError: el nombre no puede estar vacío.");
+                continue;
             }
-            System.out.println("\nError: el nombre no puede estar vacío.");
+            if (existeCategoriaConNombre(nombre)) {
+                System.out.println(
+                        "Error: Ya existe una categoria registrada con el nombre '" + nombre + "'. Intente con otro.");
+                continue;
+            }
+            return nombre;
         }
     }
 
@@ -217,7 +232,7 @@ public class MenuCategorias extends Menu {
         while (true) {
             String desc = leerTexto("\nIngrese la descripción de la categoría: ");
             if (Validaciones.validarTextoNoVacio(desc)) {
-                return desc.trim();
+                return desc;
             }
             System.out.println("\nError: la descripción no puede estar vacía.");
         }

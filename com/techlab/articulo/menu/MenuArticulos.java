@@ -112,8 +112,6 @@ public class MenuArticulos extends Menu {
         double precio = pedirPrecioArticulo();
         Categoria categoria = pedirCategoriaExistente();
 
-        // TODO opcional posterior: validación de nombres repetidos
-
         int codigo = Secuencias.generarCodigoArticulo();
         Articulo nuevoArticulo;
 
@@ -147,7 +145,7 @@ public class MenuArticulos extends Menu {
         while (true) {
             String nombre = leerTexto("\nIngrese el nombre del artículo: ");
             if (Validaciones.validarTextoNoVacio(nombre)) {
-                return nombre.trim();
+                return nombre;
             }
             System.out.println("\nError: el nombre no puede estar vacío.");
         }

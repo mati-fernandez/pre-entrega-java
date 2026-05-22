@@ -30,7 +30,7 @@ public final class Validaciones {
     }
 
     public static boolean validarTextoNoVacio(String texto) {
-        return texto != null && !texto.trim().isEmpty();
+        return texto != null && !texto.isEmpty();
     }
 
     public static boolean validarNoNegativo(int num) {
