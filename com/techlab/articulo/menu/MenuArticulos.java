@@ -86,10 +86,10 @@ public class MenuArticulos extends Menu {
                     listarArticulos();
                     break;
                 case 3:
-                    System.out.println("[Provisorio] Acá se va a consultar un artículo.");
+                    consultarArticulo();
                     break;
                 case 4:
-                    System.out.println("[Provisorio] Acá se va a modificar un artículo.");
+                    modificarArticulo();
                     break;
                 case 5:
                     System.out.println("[Provisorio] Acá se va a eliminar un artículo.");
@@ -138,6 +138,53 @@ public class MenuArticulos extends Menu {
         }
         for (Articulo art : listaArt) {
             System.out.println(art);
+        }
+    }
+
+    private void consultarArticulo() {
+        if (repoArticulos.estaVacio()) {
+            System.out.println("\nNo hay artículos cargados para consultar.");
+            return;
+        }
+        int codigo = pedirCodigoArticulo();
+        Articulo articulo = repoArticulos.buscarPorCodigo(codigo);
+        if (articulo == null) {
+            System.out.println("\nError: No existe ningún artículo con el código " + codigo);
+        } else {
+            System.out.println("\nArtículo encontrado:");
+            System.out.println(articulo);
+        }
+    }
+
+    private void modificarArticulo() {
+        if (repoArticulos.estaVacio()) {
+            System.out.println("\nNo hay artículos cargados para modificar.");
+            return;
+        }
+        System.out.println("\nArtículos disponibles para modificación:");
+        listarArticulos();
+        int codigo = pedirCodigoArticulo();
+        Articulo articulo = repoArticulos.buscarPorCodigo(codigo);
+        if (articulo == null) {
+            System.out.println("\nError: No existe ningún artículo con el código " + codigo);
+        } else {
+            System.out.println("\nArtículo encontrado:");
+            System.out.println(articulo);
+            boolean modificar = leerSiNo("\nDesea modificar este artículo?");
+            if (modificar) {
+                articulo.setNombre(pedirNombreArticulo());
+                articulo.setPrecio(pedirPrecioArticulo());
+                articulo.setCategoria(pedirCategoriaExistente());
+                if (articulo instanceof ArticuloElectronico) {
+                    ArticuloElectronico electronico = (ArticuloElectronico) articulo;
+                    electronico.setGarantiaMeses(pedirGarantia());
+                } else if (articulo instanceof ArticuloAlimenticio) {
+                    ArticuloAlimenticio alimenticio = (ArticuloAlimenticio) articulo;
+                    alimenticio.setDiasParaVencimiento(pedirDiasParaVencimiento());
+                }
+                System.out.println("\nArtículo modificado con éxito! ---> " + articulo);
+            }
+            return;
         }
     }
 
@@ -207,6 +254,16 @@ public class MenuArticulos extends Menu {
                 return categoria;
             }
             System.out.println("Error: la categoría ingresada no existe.");
+        }
+    }
+
+    private int pedirCodigoArticulo() {
+        while (true) {
+            int codigo = leerEntero("\nIngrese el codigo del artículo: ");
+            if (Validaciones.validarNoNegativo(codigo)) {
+                return codigo;
+            }
+            System.out.println("\nError: el número debe ser positivo.");
         }
     }
 }

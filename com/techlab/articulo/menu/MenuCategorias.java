@@ -70,7 +70,7 @@ public class MenuCategorias extends Menu {
         int codigo = Secuencias.generarCodigoCategoria();
         Categoria nuevaCategoria = new Categoria(codigo, nombre, descripcion);
         repoCategorias.agregar(nuevaCategoria);
-        System.out.println("\nCategoría guardada con éxito.");
+        System.out.println("\nCategoría guardada con éxito!");
     }
 
     private void listarCategorias() {
