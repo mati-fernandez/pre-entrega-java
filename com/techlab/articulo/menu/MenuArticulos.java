@@ -92,7 +92,7 @@ public class MenuArticulos extends Menu {
                     modificarArticulo();
                     break;
                 case 5:
-                    System.out.println("[Provisorio] Acá se va a eliminar un artículo.");
+                    eliminarArticulo();
                     break;
                 case 0:
                     System.out.println("Volviendo al Menú Principal...");
@@ -185,6 +185,31 @@ public class MenuArticulos extends Menu {
                 System.out.println("\nArtículo modificado con éxito! ---> " + articulo);
             }
             return;
+        }
+    }
+
+    private void eliminarArticulo() {
+        if (repoArticulos.estaVacio()) {
+            System.out.println("\nNo hay artículos cargados para eliminar.");
+            return;
+        }
+        System.out.println("\nArtículos disponibles para eliminación:");
+        listarArticulos();
+        int codigo = pedirCodigoArticulo();
+        Articulo articulo = repoArticulos.buscarPorCodigo(codigo);
+        if (articulo == null) {
+            System.out.println("\nError: No existe ningún artículo con el código " + codigo);
+            return;
+        }
+        System.out.println("\nArtículo encontrado:");
+        System.out.println(articulo);
+        if (leerSiNo("\nDesea eliminar este articulo?")) {
+            boolean eliminado = repoArticulos.eliminar(articulo);
+            if (eliminado) {
+                System.out.println("\nArtículo eliminado con éxito.");
+            } else {
+                System.out.println("\nError: No se pudo eliminar el artículo.");
+            }
         }
     }
 
