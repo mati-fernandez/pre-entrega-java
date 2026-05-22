@@ -1,5 +1,7 @@
 package com.techlab.articulo.menu;
 
+import java.util.List;
+
 import com.techlab.articulo.model.Articulo;
 import com.techlab.articulo.model.ArticuloAlimenticio;
 import com.techlab.articulo.model.ArticuloElectronico;
@@ -81,7 +83,7 @@ public class MenuArticulos extends Menu {
                     ingresarArticulo();
                     break;
                 case 2:
-                    System.out.println("[Provisorio] Acá se van a listar los artículos.");
+                    listarArticulos();
                     break;
                 case 3:
                     System.out.println("[Provisorio] Acá se va a consultar un artículo.");
@@ -126,6 +128,17 @@ public class MenuArticulos extends Menu {
         repoArticulos.agregar(nuevoArticulo);
         System.out.println("\nArtículo guardado con éxito.");
         System.out.println(nuevoArticulo);
+    }
+
+    private void listarArticulos() {
+        List<Articulo> listaArt = repoArticulos.listar();
+        if (listaArt.isEmpty()) {
+            System.out.println("\nNo hay artículos aún, debe primero ingresar alguno.");
+            return;
+        }
+        for (Articulo art : listaArt) {
+            System.out.println(art);
+        }
     }
 
     private int pedirTipoArticulo() {

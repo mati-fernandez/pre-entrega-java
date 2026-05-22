@@ -56,4 +56,9 @@ public class ArticuloElectronico extends Articulo {
     public double calcularPrecioFinal() {
         return (garantiaMeses > 12) ? getPrecio() * 1.05 : getPrecio();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | Garantía: " + garantiaMeses + " meses";
+    }
 }
