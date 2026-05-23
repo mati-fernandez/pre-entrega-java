@@ -43,10 +43,6 @@ public class Categoria implements Identificable {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
     public String getNombre() {
         return nombre;
     }

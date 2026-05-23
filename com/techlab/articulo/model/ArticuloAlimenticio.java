@@ -1,29 +1,5 @@
 package com.techlab.articulo.model;
 
-/**
- * CONSIGNA DE ESTA CLASE
- * ------------------------------------------------------------
- * Esta clase debe heredar de Articulo.
- *
- * Representa un artículo alimenticio.
- *
- * ATRIBUTO ESPECÍFICO
- * ------------------------------------------------------------
- * - diasParaVencimiento : int
- *
- * ESTA CLASE DEBE
- * ------------------------------------------------------------
- * - tener constructor
- * - tener getters y setters
- * - sobrescribir getTipoArticulo()
- * - sobrescribir calcularPrecioFinal()
- *
- * IDEA DIDÁCTICA PARA calcularPrecioFinal()
- * ------------------------------------------------------------
- * Podés definir una regla propia, por ejemplo:
- * - si faltan pocos días para vencer, aplicar descuento
- * - si no, mantener el precio
- */
 public class ArticuloAlimenticio extends Articulo {
 
     private int diasParaVencimiento;
@@ -32,9 +8,6 @@ public class ArticuloAlimenticio extends Articulo {
         super(codigo, nombre, precio, categoria);
         this.diasParaVencimiento = diasParaVencimiento;
     }
-
-    // TODO:
-    // Crear getters y setters.
 
     @Override
     public String getTipoArticulo() {
@@ -55,7 +28,7 @@ public class ArticuloAlimenticio extends Articulo {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + " | Días para vencimiento: " + diasParaVencimiento;
+    protected String getDetalleEspecifico() {
+        return "Días para vencimiento: " + diasParaVencimiento;
     }
 }

@@ -10,44 +10,6 @@ import com.techlab.articulo.repository.Repositorio;
 import com.techlab.articulo.utils.Secuencias;
 import com.techlab.articulo.utils.Validaciones;
 
-/*
- *
- * REQUISITOS IMPORTANTES
- * ------------------------------------------------------------
- * - Antes de crear un artículo, debe verificarse que existan categorías.
- * - Debe preguntarse qué tipo de artículo se quiere crear:
- * - electrónico
- * - alimenticio
- * - Debe pedirse:
- * - nombre
- * - precio
- * - categoría por código
- * - Si es electrónico:
- * - garantía en meses
- * - Si es alimenticio:
- * - días para vencimiento
- *
- * VALIDACIONES
- * ------------------------------------------------------------
- * - nombre no vacío
- * - precio no negativo
- * - categoría existente
- * - garantía no negativa
- * - días para vencimiento no negativos
- *
- * SUGERENCIA DE MÉTODOS
- * ------------------------------------------------------------
- * - ingresarArticulo()
- * - listarArticulos()
- * - consultarArticulo()
- * - modificarArticulo()
- * - eliminarArticulo()
- * - pedirCategoriaExistente()
- * - pedirNombreArticulo()
- * - pedirPrecioArticulo()
- * - pedirGarantia()
- * - pedirDiasParaVencimiento()
- */
 public class MenuArticulos extends Menu {
 
     private Repositorio<Articulo> repoArticulos;
@@ -126,7 +88,7 @@ public class MenuArticulos extends Menu {
                     diasParaVencimiento);
         }
         repoArticulos.agregar(nuevoArticulo);
-        System.out.println("\nArtículo guardado con éxito.");
+        System.out.println("\nArtículo guardado con éxito!");
         System.out.println(nuevoArticulo);
     }
 
@@ -206,7 +168,7 @@ public class MenuArticulos extends Menu {
         if (leerSiNo("\nDesea eliminar este articulo?")) {
             boolean eliminado = repoArticulos.eliminar(articulo);
             if (eliminado) {
-                System.out.println("\nArtículo eliminado con éxito.");
+                System.out.println("\nArtículo eliminado con éxito!");
             } else {
                 System.out.println("\nError: No se pudo eliminar el artículo.");
             }
@@ -229,10 +191,16 @@ public class MenuArticulos extends Menu {
     private String pedirNombreArticulo() {
         while (true) {
             String nombre = leerTexto("\nIngrese el nombre del artículo: ");
-            if (Validaciones.validarTextoNoVacio(nombre)) {
-                return nombre;
+            if (!Validaciones.validarTextoNoVacio(nombre)) {
+                System.out.println("\nError: el nombre no puede estar vacío.");
+                continue;
             }
-            System.out.println("\nError: el nombre no puede estar vacío.");
+            int max = 15;
+            if (!Validaciones.validarLongitudMaxima(nombre, max)) {
+                System.out.println("Error: el máximo de caractéres para el nombre es " + max);
+                continue;
+            }
+            return nombre;
         }
     }
 

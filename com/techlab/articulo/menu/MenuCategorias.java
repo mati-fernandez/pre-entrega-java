@@ -145,7 +145,7 @@ public class MenuCategorias extends Menu {
         if (leerSiNo("\nDesea eliminar esta categoría?")) {
             boolean eliminado = repoCategorias.eliminar(categoria);
             if (eliminado) {
-                System.out.println("\nCategoría eliminada con éxito.");
+                System.out.println("\nCategoría eliminada con éxito!");
             } else {
                 System.out.println("\nError: No se pudo eliminar la categoría.");
             }
@@ -177,6 +177,11 @@ public class MenuCategorias extends Menu {
                 System.out.println("\nError: el nombre no puede estar vacío.");
                 continue;
             }
+            int max = 15;
+            if (!Validaciones.validarLongitudMaxima(nombre, max)) {
+                System.out.println("Error: el máximo de caractéres para el nombre es " + max);
+                continue;
+            }
             if (existeCategoriaConNombre(nombre)) {
                 System.out.println(
                         "Error: Ya existe una categoria registrada con el nombre '" + nombre + "'. Intente con otro.");
@@ -189,10 +194,16 @@ public class MenuCategorias extends Menu {
     private String pedirDescripcionCategoria() {
         while (true) {
             String desc = leerTexto("\nIngrese la descripción de la categoría: ");
-            if (Validaciones.validarTextoNoVacio(desc)) {
-                return desc;
+            if (!Validaciones.validarTextoNoVacio(desc)) {
+                System.out.println("\nError: la descripción no puede estar vacía.");
+                continue;
             }
-            System.out.println("\nError: la descripción no puede estar vacía.");
+            int max = 30;
+            if (!Validaciones.validarLongitudMaxima(desc, max)) {
+                System.out.println("Error: el máximo de caractéres para la descripción es " + max);
+                continue;
+            }
+            return desc;
         }
     }
 
